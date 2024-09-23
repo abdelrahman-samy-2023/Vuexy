@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="rtl">
+<!-- BEGIN: Head-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Grid View</title>
+    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors-rtl.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/toastr.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/colors.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/components.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/plugins/charts/chart-apex.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/plugins/extensions/ext-component-toastr.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css-rtl/custom-rtl.css">
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/style-rtl.css">
+    <!-- END: Custom CSS-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .custom-hidden {
+        display: none;
+        }
+        .card {
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative; /* Added for absolute positioning */
+        }
+        .iframe-container {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-size: cover;
+        background-position: center;
+        }
+        .iframe-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        }
+        .minimized-card {
+        height: 50px;
+        overflow: hidden;
+        transition: height 0.3s ease;
+        }
+        .maximized-card {
+            position: relative;
+        }
+        .show-item .link-upper {
+            display: none;
+        }
+        .show-item .minimized-card .link-upper {
+            display: block;
+            position: absolute;
+            right: 50px;
+            top: 15px;
+        }
+        .maximized-card .link  {
+            position: absolute;
+            top: 15px;
+            right: 50px;
+        }
+        .maximized-card .card-number,
+        .minimized-card .card-number {
+            cursor: pointer;
+        }
+        .maximized-card .reorder-icon,
+        .minimized-card .reorder-icon {
+            color: #1a1a1a;
+        }
+        .minimized-card .iframe-container {
+            display: none;
+        }
+        .maximized-card {
+        height: auto;
+        }
+        .maximized-card .iframe-container {
+            display: none;
+        }
+        .maximized-card .card-content {
+            border-top: 1px solid #eee;
+            margin-top: 55px;
+        }
+        .card-content .buttons,
+        .card-content .info {
+            flex-direction: column;
+        }
+        .row-cols-md-3 .card-content .buttons .form-check input {
+            margin: auto;
+        }
+        /* media query */
+        @media (max-width: 992px ) {
+            .row-cols-md-3 .card-content .buttons,
+            .row-cols-md-3 .card-content .info {
+            flex-direction: column ;
+            justify-content: center !important;
+            align-items: center !important;
+            }
+            .row-cols-md-3 .card-content .buttons .form-check input {
+                margin: auto;
+            }
+            .col-12 .others {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        @media (max-width: 767px) {
+            .col-12 .others {
+                flex-direction: row;
+            }
+        }
+        @media (max-width: 575px ) {
+            .row-cols-md-3,
+            .row-cols-md-2 {
+                width: 500px;
+            }
+            .pace-done  {
+                margin-left: 470px;
+            }
+            .pagination {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        @media (max-width: 520px ) {
+            .row-cols-md-3,
+            .row-cols-md-2  {
+                width: 450px;
+            }
+            .pace-done  {
+                margin-left: 430px;
+            }
+        }
+        @media (max-width: 455px ) {
+            .row-cols-md-3,
+            .row-cols-md-2  {
+                width: 400px;
+            }
+            .pace-done  {
+                margin-left: 370px;
+            }
+        }
+        @media (max-width: 400px ) {
+            .row-cols-md-3,
+            .row-cols-md-2  {
+                width: 350px;
+            }
+            .pace-done  {
+                margin-left: 320px;
+            }
+        }
+        @media (max-width: 350px ) {
+            .row-cols-md-3,
+            .row-cols-md-2  {
+                width: 300px;
+            }
+            .pace-done  {
+                margin-left: 270px;
+            }
+        }
+        .pagination {
+        display: flex;
+        justify-content: center;
+        }
+        .hidden {
+        display: none;
+        }
+        .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+        /* Styles for new elements */
+        .card-number {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #000;
+        background-color: rgb(192 181 181 / 50%);
+        padding: 5px 10px;
+        border-radius: 8px;
+        z-index: 1000;
+        }
+        .delete-icon {
+        position: absolute;
+        top: 11px;
+        left: 10px;
+        font-size: 16px;
+        color: #d22c2c;
+        background-color: rgb(192 181 181 / 50%);
+        padding: 7px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        z-index: 1000;
+        }
+        .delete-icon:hover {
+        color: #d85858;
+        }
+        .content-image {
+        position: absolute;
+        bottom: 165px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        }
+        .card .card-title {
+            transition: 0.3s;
+            color: #7367F0;
+        }
+        .card .card-title:hover {
+            color: #5951af;
+        }
+        .card-content {
+        padding: 15px;
+        }
+        .form-switch {
+        display: flex;
+        align-items: center;
+        }
+        .form-switch .form-check-input {
+        width: 40px;
+        height: 20px;
+        }
+        .card-content.hidden {
+        display: none;
+        }
+
+        /* Style for Reorder Icon */
+        .reorder-icon {
+            position: absolute;
+            top: 12px;
+            left: 50px;
+            font-size: 18px;
+            color: #000 !important;
+            padding: 5px 5px;
+            border-radius: 5px;
+            cursor: move !important;
+            background-color: rgb(192 181 181 / 50%);
+            z-index: 1000;
+        }
+
+        /* Style for Reorder Active */
+        .reorder-active {
+        cursor: move !important;
+        }
+
+        /* Style for Reorder Icon when active */
+        .reorder-active .reorder-icon {
+        background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Hide the iframe in List View */
+        .card-content .iframe-container {
+        display: none; 
+        }
+        
+        .switch-toggle {
+        --width: 260px;
+        --height: 50px;
+        --offset: 2px;
+        --radius: 4px;
+        position: relative;
+        width: var(--width);
+        height: var(--height);
+        padding: var(--offset);
+        background: rgba(227, 229, 232, 0.5);
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: normal;
+        font-style: normal;
+        direction: ltr;
+    }
+    .switch-toggle input[type="checkbox"] {
+        border: 1px solid #bcbcbc;
+        border-radius: 30px;
+        cursor: pointer;
+        position: absolute;
+        inset: 0;
+        appearance: none;
+        z-index: 2;
+    }
+    .switch-toggle input[type="checkbox"]:checked + label.switch-toggle-label:before {
+        translate: 100% 0;
+    }
+    .switch-toggle input[type="checkbox"]:checked + label.switch-toggle-label span:nth-child(1) {
+        color: gray;
+    }
+    .switch-toggle input[type="checkbox"]:checked + label.switch-toggle-label span:nth-child(2) {
+        color: white;
+    }
+    .switch-toggle input[type="checkbox"] + label.switch-toggle-label {
+        position: absolute;
+        inset: var(--offset, 0);
+        padding: 10px 0;
+        display: block;
+        user-select: none;
+        pointer-events: none;
+        display: grid;
+        gap: 2px;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        place-items: center;
+    }
+    .switch-toggle input[type="checkbox"] + label.switch-toggle-label:before {
+        content: "";
+        position: absolute;
+        width: 50%;
+        inset: 0;
+        background: #7367F0;
+        border-radius: 30px;
+        box-shadow: 0px 10px 20px 0px rgba(16, 39, 68, 0.1);
+        translate: 0 0;
+        transition: translate 250ms cubic-bezier(0.93, 0.26, 0.07, 0.69);
+    }
+    .switch-toggle input[type="checkbox"] + label.switch-toggle-label span {
+        position: relative;
+        transition: 200ms linear;
+    }
+    .switch-toggle input[type="checkbox"] + label.switch-toggle-label span:nth-child(1) {
+        color: white;
+    }
+    .switch-toggle input[type="checkbox"] + label.switch-toggle-label span:nth-child(2) {
+        color: gray;
+    }
+
+    .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    #loading-spinner {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+    .play-button:hover #loading-spinner {
+        display: block;
+        opacity: 1;
+    }
+    #loading-spinner .spinner {
+        border-radius: 50%;
+        box-sizing: border-box;
+        border: 5px solid #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #loading-spinner .inner {
+        border-top: 5px solid #7367F0;
+        border-bottom: 5px solid #7367F0;
+        width: 70px;
+        height: 70px;
+        margin: -35px;
+        -webkit-animation: inner-spin 3s linear infinite;
+        animation: inner-spin 3s linear infinite;
+    }
+    #loading-spinner .outer {
+        border-right: 5px solid #7367F0;
+        border-left: 5px solid #7367F0;
+        width: 90px;
+        height: 90px;
+        margin: -45px;
+        -webkit-animation: outer-spin 3s linear infinite;
+        animation: outer-spin 3s linear infinite;
+    }
+    #loading-spinner .eye {
+        width: 50px;
+        height: 50px;
+        border: none;
+        background-color: #7367F0;
+        animation: eye-flash 3s infinite;
+    }
+    @-webkit-keyframes inner-spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    @keyframes inner-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @-webkit-keyframes outer-spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate-(180deg);
+        }
+    }
+    @keyframes outer-spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-180deg);
+        }
+    }
+    @keyframes eye-flash {
+        0% {
+            background-color: #7367F0;
+        }
+        50% {
+            background-color: #b1b0b0;
+        }
+        100% {
+            background-color: #7367F0;
+        }
+    }
+    .accordion .accordion-body {
+        padding: 0.42rem 0;
+    }
+    .accordion-body .main-img {
+        max-width: 100%;
+        width: 200px;
+        border-radius: 8px;
+    }
+    </style>
+
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+<body>
+    <div class="container my-4">
+
+        <div class="switch-toggle mb-3">
+            <input class="switch-toggle-checkbox" type="checkbox" id="pricing-plan-switch" />
+            <label class="switch-toggle-label" for="pricing-plan-switch">
+                <span>Grid View</span>
+                <span>List View</span>
+            </label>
+        </div>
+        <!-- Cards Container -->
+        <div id="cardContainer" class="row row-cols-1 row-cols-md-2"></div>
+    
+        <!-- Pagination -->
+        <nav>
+        <ul class="pagination pb-3">
+            <li class="page-item"><a class="page-link" href="#" id="prevPage">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#" id="nextPage">Next</a></li>
+        </ul>
+        </nav>
+    </div>
+
+    <!-- Modal for Video -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Watch Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="videoIframe" width="100%" height="400" src="" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="../../../app-assets/js/core/app-menu.js"></script>
+    <script src="../../../app-assets/js/core/app.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- JQuery for Toggle functionality -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Include Sortable.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+
+    <script src="select-options.ts"></script>
+    <script src="date-time-picker.ts"></script>
+    <script src="upload-image.ts"></script>
+
+    <script>
+    $(document).ready(function() {
+    // Function to open the modal
+    function openModal() {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            myModal.show();
+    }
+
+    $(document).ready(function() {
+        const totalCards = 18; // Total number of cards
+        const cardsPerPage = 9; // Cards per page in Map View
+        let currentPage = 1;
+        let isListView = false;
+
+        // Create sample cards
+        function createCard(index) {
+            return `
+            <div class="col show-item mb-1" id="card-item-${index}">
+                <div class="card minimized-card m-0" id="card-${index}">
+                    <i class="fas fa-arrows-alt reorder-icon" data-card-id="${index}"></i>
+                    <a class="link-upper"><h5 class="card-title m-0">Card ${index}</h5></a>
+                    <div class="card-number">${index}</div>
+                    <i class="fas fa-trash-alt delete-icon" data-card-id="${index}"></i>
+                    <div class="iframe-container" style="background-image: url('https://picsum.photos/200'); background-size: cover; background-position: center;">
+                        <button class="play-button" data-card-id="${index}" data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                            <i class="fas fa-play"></i>
+                            <!-- Loading Spinner -->
+                            <div id="loading-spinner">
+                                <div class="spinner outer">
+                                    <div class="spinner inner">
+                                        <div class="spinner eye">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="card-content hidden">
+                    <a class="link"><h5 class="card-title m-0">Card ${index}</h5></a>
+                    <div class="accordion" id="accordionExample${index}">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading${index}">
+                                <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                    
+                                </button>
+                            </h2>
+                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#accordionExample${index}">
+                                <div class="accordion-body text-center">
+                                    <div class="col-12 mb-1">
+                                            <img class="main-img mb-1" id="uploadedImage" src="../../../app-assets/images/banner/banner-30.jpg" alt="">
+                                            <div class="col-lg-12 col-md-12 mb-2 mb-sm-0">
+                                                <label for="formFile" class="form-label">Upload Image</label>
+                                                <input class="form-control" type="file" id="formFile" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="basicInput">Content Title</label>
+                                                <input type="text" class="form-control" id="basicInput" placeholder="Enter Content Title">
+                                            </div>
+                                            <div class="mb-1">
+                                                <label class="form-label" for="custom-basicSelect">Select Content Type</label>
+                                                <select class="form-select" id="custom-basicSelect">
+                                                    <option value="">Select Type</option>
+                                                    <option value="video">Video</option>
+                                                    <option value="iframe">Iframe URL</option>
+                                                    <option value="pdf">Pdf</option>
+                                                    <option value="file">File</option>
+                                                    <option value="text">Text</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- Video Options -->
+                                            <div id="custom-videoOptions" class="mb-3 custom-hidden">
+                                                <label class="form-label" for="custom-video-select">Video Type</label>
+                                                <select class="form-select" id="custom-video-select">
+                                                    <option value="">Select Video Type</option>
+                                                    <option value="url">URL</option>
+                                                    <option value="iframe">Iframe URL</option>
+                                                </select>
+                                            </div>
+
+                                            <!-- URL Input -->
+                                            <div id="custom-urlInput" class="mb-3 custom-hidden">
+                                                <label class="form-label" for="custom-video-url">Video URL</label>
+                                                <input type="text" class="form-control" id="custom-video-url" placeholder="Enter Video URL">
+                                            </div>
+
+                                            <!-- Iframe Input -->
+                                            <div id="custom-iframeInput" class="mb-3 custom-hidden">
+                                                <label class="form-label" for="custom-iframe-url">Iframe URL</label>
+                                                <input type="text" class="form-control" id="custom-iframe-url" placeholder="Enter Iframe URL">
+                                            </div>
+
+                                            <!-- Pdf Options -->
+                                            <div id="custom-pdfOptions" class="mb-3 custom-hidden">
+                                                <label class="form-label" for="custom-pdf-url">PDF URL</label>
+                                                <input type="text" class="form-control" id="custom-pdf-url" placeholder="Enter PDF URL">
+                                            </div>
+
+                                            <!-- File Option -->
+                                            <div id="custom-fileOptionContainer" class="mb-3 custom-hidden">
+                                                <label for="custom-fileOption" class="form-label">File Upload</label>
+                                                <input class="form-control" type="file" id="custom-fileOption" multiple="">
+                                            </div>
+
+                                            <!-- Text Option -->
+                                            <div id="custom-textOption" class="mb-3 custom-hidden">
+                                                <label class="form-label" for="custom-text-input">Text</label>
+                                                <input type="text" class="form-control" id="custom-text-input" placeholder="Enter Text">
+                                            </div>
+                                            <div class="others d-flex justify-content-between align-items-center mb-1">
+                                                <button class="btn btn-primary analytics-btn" data-card-id="1"><i class="fas fa-chart-bar"></i> Analytics</button>
+                                                <div class="info d-flex justify-content-between align-items-center">
+                                                    <h6>Attached to quiz</h6>
+                                                    <span>Quiz name</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="offcanvas-start-example">
+                                                <button class="btn btn-outline-primary waves-effect" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasStart" aria-controls="offcanvasStart">
+                                                    Attach to quiz
+                                                </button>
+                                                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasStart" aria-labelledby="offcanvasStartLabel" aria-hidden="true" style="visibility: hidden;">
+                                                    <div class="offcanvas-header">
+                                                        <h5 id="offcanvasStartLabel" class="offcanvas-title">Attach to quiz</h5>
+                                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="offcanvas-body flex-grow-0">
+                                                        <div class="col-md-12 mb-1" data-select2-id="46">
+                                                            <label class="form-label" for="select2-basic">Quiz Topic</label>
+                                                            <div class="position-relative" data-select2-id="45">
+                                                                <select class="select2 form-select select2-hidden-accessible" id="select2-basic" data-select2-id="select2-basic" tabindex="-1" aria-hidden="true">
+                                                                    <option value="AK" data-select2-id="2">Test 1</option>
+                                                                    <option value="HI" data-select2-id="55">Test 2</option>
+                                                                    <option value="CA" data-select2-id="56">Test 3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-check form-switch mb-2 d-flex justify-content-between align-items-center">
+                                                            <input class="form-check-input me-2" type="checkbox" id="flexChecked" checked="">
+                                                            <label class="form-check-label" for="flexChecked">Required</label>
+                                                        </div>
+                                                        <div class="form-check form-switch mb-2 d-flex justify-content-between align-items-center">
+                                                            <input class="form-check-input me-2" type="checkbox" id="Checked" checked="">
+                                                            <label class="form-check-label" for="Checked">After</label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 mb-1">
+                                                                <label class="form-label" for="date-start">Start at</label>
+                                                                <input type="text" id="date-start" class="form-control" placeholder="YYYY-MM-DD HH:mm">
+                                                            </div>
+                                                            <div class="col-md-12 mb-1">
+                                                                <label class="form-label" for="date-end">End at</label>
+                                                                <input type="text" id="date-end" class="form-control" placeholder="YYYY-MM-DD HH:mm">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        // Render cards based on the view and pagination
+        function renderCards() {
+            $('#cardContainer').empty();
+            const start = (currentPage - 1) * cardsPerPage;
+            const end = isListView ? totalCards : Math.min(totalCards, start + cardsPerPage);
+
+            for (let i = start; i < end; i++) {
+                $('#cardContainer').append(createCard(i + 1));
+            }
+
+            if (isListView) {
+                $('.pagination').addClass('hidden');
+                $('.minimize-btn').addClass('hidden');
+                $('.minimized-card').removeClass('maximized-card');
+                $('.maximize-btn').removeClass('hidden'); // Show Maximize button by default in List View
+                $('.card').addClass('minimized-card').removeClass('col-md-4 maximized-card col-md-2'); // Change to 2 cards per row
+                $('.card-content').addClass('hidden'); // Hide card content in List View
+                $('#cardContainer').removeClass('row-cols-md-3').addClass('row-cols-md-2'); // Change to 2 cards per row
+            } else {
+                $('.pagination').removeClass('hidden');
+                $('.card').addClass('col-md-4').removeClass('minimized-card maximized-card col-md-2'); // Reset to 3 cards per row
+                $('.maximize-btn, .minimize-btn').addClass('hidden');
+                $('.card-content').removeClass('hidden'); // Show card content in Map View
+                $('#cardContainer').removeClass('row-cols-md-2').addClass('row-cols-md-3'); // Change back to 3 cards per row
+            }
+        }
+
+        // Handle List View toggle
+        $('#listViewBtn').click(function() {
+            isListView = true;
+            renderCards();
+        });
+        /*
+        // Upload Image
+        $(document).ready(function() {
+            $('#formFile').on('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#uploadedImage').attr('src', e.target.result);
+                        
+                        $('.main-img').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+        */
+
+        // Handle Map View toggle
+        $('#mapViewBtn').click(function() {
+            isListView = false;
+            renderCards();
+        });
+
+        // Handle New Toggle
+        $('#pricing-plan-switch').change(function() {
+        isListView = $(this).prop('checked'); // Check if the switch is checked
+        renderCards();
+        });
+
+        // Handle Previous Page button
+        $('#prevPage').click(function(e) {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                renderCards();
+            }
+        });
+
+        // Handle Next Page button
+        $('#nextPage').click(function(e) {
+            e.preventDefault();
+            if (currentPage < Math.ceil(totalCards / cardsPerPage)) {
+                currentPage++;
+                renderCards();
+            }
+        });
+
+        // Handle Maximize and Minimize for List View
+        $(document).on('click', '.card-number', function() {
+            const cardId = $(this).closest('.card').attr('id').split('-')[1]; // Get card ID from the closest card element
+            $(`#card-${cardId} .card-content`).toggleClass('hidden'); // Toggle visibility of card content
+            $(`#card-${cardId}`).toggleClass('maximized-card minimized-card'); // Toggle between minimized and maximized classes
+        });
+
+        $(document).on('click', '.maximize-btn', function() {
+            const cardId = $(this).data('card-id');
+            $(`#card-${cardId}`).removeClass('minimized-card').addClass('maximized-card');
+            $(`#card-${cardId} .maximize-btn`).addClass('hidden');  // Hide Maximize button
+            $(`#card-${cardId} .minimize-btn`).removeClass('hidden'); // Show Minimize button
+            $(`#card-${cardId} .card-content`).removeClass('hidden'); // Show card content
+        });
+
+        // Handle Delete Card
+        $(document).on('click', '.delete-icon', function() {
+            const cardId = $(this).data('card-id');
+            $(`#card-${cardId}`).remove(); // Remove the card
+        });
+
+        // Handle Modal Button Click
+        $(document).on('click', '.modal-btn', function() {
+            const cardId = $(this).data('card-id');
+            openModal(); // Open the modal
+            // You can add logic here to pass card-specific data to the modal if needed
+        });
+
+        // Handle Analytics Button Click
+        $(document).on('click', '.analytics-btn', function() {
+            const cardId = $(this).data('card-id');
+            // Add logic here to handle analytics for the specific card
+            alert(`Analytics for Card ${cardId}`); // Placeholder for analytics action
+        });
+
+        // Handle Video Play Button Click
+        $(document).on('click', '.play-button', function() {
+            const videoUrl = $(this).data('video-url');
+            $('#videoIframe').attr('src', videoUrl); // Set the video URL
+            $('#videoModal').modal('show'); // Show the modal
+        });
+
+        // Reset the video source when the modal is closed
+        $('#videoModal').on('hidden.bs.modal', function () {
+            $('#videoIframe').attr('src', ''); // Clear the video source
+        });
+
+        // Initial rendering in Map View
+        renderCards();
+
+        // Initialize Sortable for List View
+        const cardContainer = document.getElementById('cardContainer');
+        Sortable.create(cardContainer, {
+            animation: 150,
+            handle: '.reorder-icon',
+            filter: '.delete-icon',
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            forceFallback: true
+        });
+
+        // Update card numbers after reordering
+        Sortable.on(cardContainer, 'sort:update', function(evt) {
+            const cardItems = $('#cardContainer').children();
+            cardItems.each(function(index) {
+                $(this).find('.card-number').text(index + 1); // Update card number
+                $(this).attr('id', `card-item-${index + 1}`); // Update card item ID
+                $(this).find('.card').attr('id', `card-${index + 1}`); // Update card ID
+                $(this).find('.reorder-icon').attr('data-card-id', index + 1); // Update reorder icon data-card-id
+                $(this).find('.delete-icon').attr('data-card-id', index + 1); // Update delete icon data-card-id
+                $(this).find('.maximize-btn').attr('data-card-id', index + 1); // Update maximize button data-card-id
+                $(this).find('.minimize-btn').attr('data-card-id', index + 1); // Update minimize button data-card-id
+                $(this).find('.modal-btn').attr('data-card-id', index + 1); // Update modal button data-card-id
+                $(this).find('.analytics-btn').attr('data-card-id', index + 1); // Update analytics button data-card-id
+                $(this).find('.play-button').attr('data-card-id', index + 1); // Update play button data-card-id
+            });
+        });
+
+    });
+
+    });
+    </script>
+    
+    <!--
+    <script>
+        // Select Option
+        document.addEventListener('DOMContentLoaded', function() {
+        const basicSelect = document.getElementById('custom-basicSelect');
+        const videoSelect = document.getElementById('custom-video-select');
+
+        if (basicSelect) {
+            // Handle the selection of content type
+            basicSelect.addEventListener('change', function() {
+                // Hide all options initially
+                document.getElementById('custom-videoOptions').classList.add('custom-hidden');
+                document.getElementById('custom-urlInput').classList.add('custom-hidden');
+                document.getElementById('custom-iframeInput').classList.add('custom-hidden');
+                document.getElementById('custom-pdfOptions').classList.add('custom-hidden');
+                document.getElementById('custom-fileOptionContainer').classList.add('custom-hidden');
+                document.getElementById('custom-textOption').classList.add('custom-hidden');
+
+                // Show relevant fields based on selected value
+                var selectedValue = this.value;
+                if (selectedValue === 'video') {
+                    document.getElementById('custom-videoOptions').classList.remove('custom-hidden');
+                } else if (selectedValue === 'iframe') {
+                    document.getElementById('custom-iframeInput').classList.remove('custom-hidden');
+                } else if (selectedValue === 'pdf') {
+                    document.getElementById('custom-pdfOptions').classList.remove('custom-hidden');
+                } else if (selectedValue === 'file') {
+                    document.getElementById('custom-fileOptionContainer').classList.remove('custom-hidden');
+                } else if (selectedValue === 'text') {
+                    document.getElementById('custom-textOption').classList.remove('custom-hidden');
+                }
+            });
+        }
+
+        if (videoSelect) {
+            // Handle video type selection
+            videoSelect.addEventListener('change', function() {
+                // Hide both options initially
+                document.getElementById('custom-urlInput').classList.add('custom-hidden');
+                document.getElementById('custom-iframeInput').classList.add('custom-hidden');
+
+                // Show the correct option based on selection
+                if (this.value === 'url') {
+                    document.getElementById('custom-urlInput').classList.remove('custom-hidden');
+                } else if (this.value === 'iframe') {
+                    document.getElementById('custom-iframeInput').classList.remove('custom-hidden');
+                }
+            });
+        }
+    });
+    </script>
+    -->
+
+    <!--
+    <script>
+        // Date and Time
+        $(document).ready(function() {
+            $('#date-start').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm',
+                icons: {
+                    time: 'fas fa-clock',
+                    date: 'fas fa-calendar',
+                    up: 'fas fa-chevron-up',
+                    down: 'fas fa-chevron-down',
+                    previous: 'fas fa-chevron-left',
+                    next: 'fas fa-chevron-right',
+                    today: 'fas fa-calendar-check-o',
+                    clear: 'fas fa-trash',
+                    close: 'fas fa-times'
+                }
+            });
+            $('#date-end').datetimepicker({
+                format: 'YYYY-MM-DD HH:mm',
+                useCurrent: false // Important for preventing the end date from being set to the start date
+            });
+
+            // Prevent end date from being earlier than start date
+            $("#date-start").on("dp.change", function(e) {
+                $('#date-end').data("DateTimePicker").minDate(e.date);
+            });
+            $("#date-end").on("dp.change", function(e) {
+                $('#date-start').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+    </script>
+    -->
+</body>
+</html>
